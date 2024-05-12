@@ -1,4 +1,4 @@
-package Ejercicio2;
+package Exercise2;
 
 public enum PizzaMass {
     SLIM(0.8),

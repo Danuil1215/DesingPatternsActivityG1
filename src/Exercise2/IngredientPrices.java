@@ -1,4 +1,4 @@
-package Ejercicio2;
+package Exercise2;
 
 public enum IngredientPrices {
     CHEESE_PORTION_PRICE(0.10),

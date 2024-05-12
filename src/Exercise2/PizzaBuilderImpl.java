@@ -1,4 +1,4 @@
-package Ejercicio2;
+package Exercise2;
 
 public class PizzaBuilderImpl implements PizzaBuilder{
 
