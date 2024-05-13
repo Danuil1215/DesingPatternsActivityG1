@@ -6,9 +6,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.itextpdf.text.pdf.PdfWriter;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 
 public class ReportPDF extends Report {
@@ -19,38 +17,47 @@ public class ReportPDF extends Report {
     }
 
     @Override
-    public void completeFile(File tempPdfFile, List<Employee> employees) throws IOException, DocumentException {
+    public void completeFile(File tempPdfFile, List<Employee> employees) {
         Document pdfDocument = new Document(PageSize.A4.rotate(), 0, 0, 20, 0);
-        PdfWriter pdfWriter = PdfWriter.getInstance(pdfDocument, new FileOutputStream(tempPdfFile));
-        pdfWriter.setPageEvent(new PdfPageEventHelper() {
-            private boolean newPage = true;
-            @Override
-            public void onStartPage(PdfWriter writer, Document document) {
-                if (newPage) {
-                    PdfPTable newRow = new PdfPTable(header.size());
-                    addRowInitial(newRow,header);
-                    try {
-                        document.add(newRow);
-                    } catch (DocumentException e) {}
+        try{
+            PdfWriter pdfWriter = PdfWriter.getInstance(pdfDocument, new FileOutputStream(tempPdfFile));
+            pdfWriter.setPageEvent(new PdfPageEventHelper() {
+                private boolean newPage = true;
+
+                @Override
+                public void onStartPage(PdfWriter writer, Document document) {
+                    if (newPage) {
+                        PdfPTable newRow = new PdfPTable(header.size());
+                        addRowInitial(newRow, header);
+                        try {
+                            document.add(newRow);
+                        } catch (DocumentException e) {
+                        }
+                    }
+                    newPage = false;
                 }
-                newPage = false;
+
+                @Override
+                public void onEndPage(PdfWriter writer, Document document) {
+                    newPage = true;
+                }
+            });
+            pdfDocument.open();
+            PdfPTable table = new PdfPTable(header.size());
+            table.setHeaderRows(0);
+            for (Employee employee : employees) {
+                addData(table, employee);
             }
-            @Override
-            public void onEndPage(PdfWriter writer, Document document) {
-                newPage = true;
-            }
-        });
-        pdfDocument.open();
-        PdfPTable table = new PdfPTable(header.size());
-        table.setHeaderRows(0);
-        for (Employee employee : employees) {
-            addData(table, employee);
+            addTotalsData(table);
+            pdfDocument.add(table);
+            pdfDocument.close();
+            pdfWriter.close();
+            System.out.println("The file " + tempPdfFile.getName() + " has been generated successfully");
+        }catch (DocumentException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
         }
-        addTotalsData(table);
-        pdfDocument.add(table);
-        pdfDocument.close();
-        pdfWriter.close();
-        System.out.println("The file "+tempPdfFile.getName()+" has been generated successfully");
     }
 
     private void addRowInitial(PdfPTable table, List<String> headerFields) {

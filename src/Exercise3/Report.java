@@ -47,14 +47,13 @@ public abstract  class Report {
             return null;
         }
     }
-    public abstract void completeFile(File file, List<Employee> employees) throws IOException, DocumentException;
+    public abstract void completeFile(File file, List<Employee> employees);
 
     protected void generateReport()  {
         List<Employee> employees = getEmployeesFromBD();
         calculateTotal(employees);
         File file = initializeFile();
         try {
-            BufferedWriter bw = null;
             completeFile(file, employees);
         }catch (Exception e) {
             e.printStackTrace();

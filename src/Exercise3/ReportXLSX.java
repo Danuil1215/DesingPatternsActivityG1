@@ -4,6 +4,7 @@ import org.dhatim.fastexcel.Workbook;
 import org.dhatim.fastexcel.Worksheet;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
@@ -21,8 +22,10 @@ public class ReportXLSX extends Report {
     }
 
     @Override
-    public void completeFile(File file, List<Employee> employees) throws IOException {
-        FileOutputStream fos = new FileOutputStream(file);
+    public void completeFile(File file, List<Employee> employees) {
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(file);
         Workbook wb = new Workbook(fos, "Application", "1.0");
         Worksheet ws = wb.newWorksheet("Hoja " + sheetCurrent);
         addRowInitial(ws, this.header);
@@ -38,6 +41,11 @@ public class ReportXLSX extends Report {
         fos.close();
         System.out.println("The file "+nameFile+" has been generated successfully");
         System.gc();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void addRowInitial(Worksheet ws, List<String> headerFields) {
