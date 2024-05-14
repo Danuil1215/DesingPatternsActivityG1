@@ -4,25 +4,25 @@ import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class KmlAdapter implements IGeo {
+public class KmlAdapter implements Adapter{
 
-    private IKml kml;
+    private KmlService kml;
 
-    public KmlAdapter(IKml kml) {
-        this.kml = kml;
+    public KmlAdapter() {
+        this.kml = new KmlService();
     }
 
     @Override
-    public String processData() {
+    public String processData(double[] coordinates) {
         Pattern pattern = Pattern.compile("<coordinates>(.*?)</coordinates>");
-        Matcher matcher = pattern.matcher(kml.toKML());
+        Matcher matcher = pattern.matcher(kml.toKML(coordinates));
 
-        String coordinates = "";
+        String coordinatesFound = "";
         if (matcher.find()) {
-            coordinates = matcher.group(1);
+            coordinatesFound = matcher.group(1);
         }
 
-        String[] parts = coordinates.split(",");
+        String[] parts = coordinatesFound.split(",");
         String geoJson = "{ \"type\": \"Point\", \"coordinates\": " + Arrays.toString(parts) + " }";
 
         return geoJson;
