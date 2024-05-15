@@ -18,7 +18,7 @@ public class Exercise1Main {
             System.out.println("(C) create | (U) update | (D) delete | (T) complete | (R) undo | (X) exit | (Q) up | (A) down");
             String option = myObj.nextLine();
 
-            switch (option){
+            switch (option.toUpperCase()){
                 case "C":
                     editor.executeCommand(new CommandCreate(editor));
                     break;
