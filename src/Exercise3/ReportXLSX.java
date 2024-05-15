@@ -1,4 +1,4 @@
-package Exercise3;
+package src.Exercise3;
 
 import org.dhatim.fastexcel.Workbook;
 import org.dhatim.fastexcel.Worksheet;

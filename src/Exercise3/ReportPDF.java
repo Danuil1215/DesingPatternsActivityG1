@@ -1,4 +1,4 @@
-package Exercise3;
+package src.Exercise3;
 
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPCell;

@@ -1,4 +1,4 @@
-package exercise4;
+package src.exercise4;
 
 public class KmlService {
 

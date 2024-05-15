@@ -1,4 +1,4 @@
-package Exercise2;
+package src.Exercise2;
 
 public enum IngredientPrices {
     CHEESE_PORTION_PRICE(0.10),

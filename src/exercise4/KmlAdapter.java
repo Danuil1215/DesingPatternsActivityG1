@@ -1,4 +1,4 @@
-package exercise4;
+package src.exercise4;
 
 import java.util.Arrays;
 import java.util.regex.Matcher;
