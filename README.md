@@ -13,6 +13,11 @@ Juan Felipe Gonzalez Ortiz
 
 Juan Toledo
 
+# Configuración del source folder:
+Una vez se haya clonado el repositorio asegurarse que el folder src este marcado como Source root
+
+En caso contrario dar click derecho sobre este y buscar la opcion Mark Directory as o Marcar Directorio Como y dar la opcion de source root. 
+
 # Consideraciones para el Ejercicio 1:
 # Este  ejercicio tiene un menú para navegar la funcionalidad del ejercicio
 
