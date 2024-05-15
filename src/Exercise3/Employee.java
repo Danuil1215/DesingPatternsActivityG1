@@ -1,4 +1,4 @@
-package src.Exercise3;
+package Exercise3;
 
 public class Employee {
 

@@ -1,4 +1,4 @@
-package src.exercise4;
+package exercise4;
 
 public interface Adapter {
     String processData(double[] coordinates);

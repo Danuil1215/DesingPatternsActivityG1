@@ -1,4 +1,4 @@
-package src.Exercise2;
+package Exercise2;
 
 public enum PizzaSize {
     BIG(15.0),
